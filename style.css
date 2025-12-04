@@ -137,14 +137,7 @@ body {
 .tilt-card:hover { border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
 /* --- NEW HERO RANK CARD FIX --- */
-.tilt-card.rank-hero {
-    border: 1px solid #d900ff;         /* Purple border */
-    box-shadow: 0 0 15px rgba(217, 0, 255, 0.3); /* Soft purple glow */
-    background: rgba(20, 20, 20, 0.8); 
-}
-.tilt-card.rank-hero:hover {
-    box-shadow: 0 0 25px rgba(217, 0, 255, 0.6);
-}
+
 /* -------------------------------- */
 
 .card-content {
