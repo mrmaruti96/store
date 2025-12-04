@@ -185,7 +185,7 @@ body {
 .badge.rare, .modal-badge.rare { border: 1px solid var(--rare); color: var(--rare); }
 .badge.common, .modal-badge.uncommon { border: 1px solid var(--common); color: var(--common); }
 .badge.elite { background: #b0b0b0; color: #fff; box-shadow: 0 0 10px #b0b0b0; } /* Silver */
-.badge.hero { background: #d900ff; color: #fff; box-shadow: 0 0 10px #d900ff; } /* Purple/Pink */
+.badge.hero-tier { background: #d900ff; color: #fff; box-shadow: 0 0 10px #d900ff; } /* Purple/Pink */
 .badge.legend { background: #00e5ff; color: #000; box-shadow: 0 0 10px #00e5ff; } /* Cyan */
 .badge.vip { background: #ffae00; color: #000; box-shadow: 0 0 10px #ffae00; } /* Gold */
 .badge.vipplus { background: #00ff2a; color: #000; box-shadow: 0 0 10px #00ff2a; } /* Green */
