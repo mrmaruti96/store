@@ -1,294 +1,497 @@
-:root {
-    --bg: #0a0a0c;
-    --card-bg: rgba(255, 255, 255, 0.03);
-    --primary: #ffffff;
-    --accent: #4cc9f0; 
-    --accent-glow: rgba(76, 201, 240, 0.6);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buildtopia | Premium Market</title>
+    <link rel="stylesheet" href="style.css">
     
-    /* Rarity Colors */
-    --leg: #ffbd00; /* Gold */
-    --epic: #9d4edd; /* Purple */
-    --rare: #4361ee; /* Blue */
-    --common: #2ec4b6; /* Teal */
-
-    /* Fonts */
-    --font-head: 'Unbounded', sans-serif;
-    --font-body: 'Outfit', sans-serif;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    background-color: var(--bg);
-    font-family: var(--font-body);
-    color: white;
-    overflow-x: hidden;
-}
-
-/* --- ANIMATIONS --- */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
-    100% { transform: translateY(0px); }
-}
-
-/* Background */
-.bg-layer {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-    background: url('https://ik.imagekit.io/0pbigpeehf/2025-11-01_13.11.54.png') no-repeat center center/cover;
-    filter: brightness(0.25) contrast(1.1);
-}
-
-/* Nav */
-.glass-nav {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 20px 6%;
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(10, 10, 12, 0.9);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-}
-
-.logo-container { display: flex; align-items: center; gap: 15px; }
-.site-logo { height: 50px; width: auto; filter: drop-shadow(0 0 5px var(--accent)); }
-.logo-text { font-family: var(--font-head); font-weight: 700; font-size: 1.4rem; letter-spacing: 1px; }
-.logo-text .accent { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
-
-.nav-links a {
-    color: rgba(255,255,255,0.7); text-decoration: none;
-    margin-left: 30px; font-weight: 500; font-size: 0.95rem;
-    transition: 0.3s;
-    text-transform: uppercase; letter-spacing: 1px;
-    position: relative;
-}
-.nav-links a::after {
-    content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
-    background: var(--accent); transition: width 0.3s;
-}
-.nav-links a:hover { color: white; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-.nav-links a:hover::after { width: 100%; }
-
-/* Hero */
-.hero {
-    height: 90vh; display: flex; align-items: center; justify-content: center;
-    text-align: center; padding-top: 50px;
-}
-.hero-title {
-    font-family: var(--font-head); font-size: 5rem; font-weight: 900; line-height: 1.1;
-    margin-bottom: 20px; text-transform: uppercase;
-    text-shadow: 0 10px 30px rgba(0,0,0,0.8);
-}
-.text-gradient {
-    background: linear-gradient(to right, #fff, var(--accent));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 10px var(--accent-glow));
-}
-.hero-subtitle {
-    font-size: 1.2rem; color: #ccc; margin-bottom: 40px; font-weight: 300; letter-spacing: 1px;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.8);
-}
-.cta-btn {
-    padding: 18px 50px; background: var(--accent); color: #000;
-    font-family: var(--font-head); font-weight: 700; text-decoration: none;
-    text-transform: uppercase; border-radius: 4px; transition: 0.3s; display: inline-block;
-    box-shadow: 0 0 15px var(--accent-glow);
-}
-.cta-btn:hover { 
-    box-shadow: 0 0 40px var(--accent-glow); 
-    transform: scale(1.05) translateY(-3px); 
-    background: white;
-}
-
-/* Sections */
-.section-padding { padding: 100px 8%; }
-.section-header { margin-bottom: 60px; display: flex; align-items: center; gap: 20px; }
-.section-header h2 {
-    font-family: var(--font-head); font-size: 3rem; font-weight: 700; color: white; margin: 0;
-    text-shadow: 0 5px 15px rgba(0,0,0,0.5);
-}
-.header-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--accent), transparent); }
-
-/* Note Box Style */
-.note-box {
-    background: rgba(76, 201, 240, 0.05);
-    border-left: 4px solid var(--accent);
-    padding: 20px;
-    margin-bottom: 40px;
-    border-radius: 0 8px 8px 0;
-    display: flex; align-items: center; gap: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-.note-box i { color: var(--accent); font-size: 1.2rem; }
-.note-box strong { color: white; }
-.note-box p { color: #ddd; margin: 0; }
-
-.grid-container {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
-}
-
-/* Cards */
-.tilt-card {
-    background: var(--card-bg); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px; position: relative; overflow: hidden;
-    cursor: pointer; transform-style: preserve-3d; transition: transform 0.2s ease-out, border-color 0.3s;
-    backdrop-filter: blur(5px);
-}
-.tilt-card:hover { border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-
-.card-content {
-    padding: 30px 20px; text-align: center; position: relative; z-index: 2; pointer-events: none;
-}
-
-/* --- CARD IMAGE --- */
-.card-img {
-    width: 100%;
-    height: 200px; /* Bigger Size */
-    object-fit: contain;
-    margin-bottom: 25px;
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Unbounded:wght@500;700;900&display=swap" rel="stylesheet">
     
-    /* Rounded & Slot Look */
-    border-radius: 20px; 
-    background: rgba(255, 255, 255, 0.05); 
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    padding: 15px; 
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-    
-    /* Animation */
-    animation: float 4s ease-in-out infinite;
-}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
 
-.tilt-card h3 { 
-    font-family: var(--font-head); font-size: 1.2rem; margin-bottom: 15px; 
-    text-transform: uppercase; letter-spacing: 1px;
-}
+    <div class="bg-layer"></div>
 
-/* Badges */
-.badge {
-    font-size: 0.7rem; font-weight: 700; letter-spacing: 2px;
-    padding: 6px 14px; border-radius: 30px; text-transform: uppercase;
-    display: inline-block; margin-bottom: 20px;
-}
-.badge.leg, .modal-badge.legendary { border: 1px solid var(--leg); color: var(--leg); box-shadow: 0 0 10px rgba(255, 189, 0, 0.2); }
-.badge.epic, .modal-badge.epic { border: 1px solid var(--epic); color: var(--epic); }
-.badge.rare, .modal-badge.rare { border: 1px solid var(--rare); color: var(--rare); }
-.badge.common, .modal-badge.uncommon { border: 1px solid var(--common); color: var(--common); }
+    <nav class="glass-nav">
+        <div class="logo-container">
+            <img src="https://ik.imagekit.io/0pbigpeehf/Untitled_design_8-Photoroom.png" alt="Logo" class="site-logo">
+            <div class="logo-text">BUILDTOPIA <span class="accent">SMP</span></div>
+        </div>
+        <div class="nav-links">
+            <a href="#currency">Currency</a>
+            <a href="#armor">Armor</a>
+            <a href="#furniture">Furniture</a>
+            <a href="#plushies">Plushies</a>
+            <a href="#weapons">Weapons</a>
+        </div>
+    </nav>
 
-.price { font-family: var(--font-head); font-size: 1.8rem; color: white; margin-bottom: 10px; }
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">BUILDTOPIA SMP <br><span class="text-gradient">STORE</span></h1>
+            <p class="hero-subtitle">In-Game Exclusive Armors, Furniture, Decorations and Many More</p>
+            <a href="#currency" class="cta-btn"><span>ENTER STORE</span></a>
+        </div>
+    </header>
 
-/* Buttons inside cards */
-.mini-btn, .buy-btn-style {
-    display: inline-block; margin-top: 10px;
-    font-size: 0.9rem; font-weight: 700; color: #ccc;
-    text-decoration: none; border: 1px solid #555; padding: 10px 25px;
-    pointer-events: auto;
-    transition: 0.3s; background: rgba(0,0,0,0.3); cursor: pointer;
-    font-family: var(--font-head);
-    border-radius: 6px; text-transform: uppercase;
-}
-.mini-btn:hover, .buy-btn-style:hover {
-    color: #000; background: var(--accent); border-color: var(--accent);
-    box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-2px);
-}
+    <main>
+        <section id="currency" class="section-padding">
+            <div class="section-header fade-on-scroll">
+                <h2>CURRENCY</h2>
+                <div class="header-line"></div>
+            </div>
+            
+            <div class="note-box fade-on-scroll">
+                <i class="fa-solid fa-tag"></i>
+                <p><strong>TIP:</strong> FYI <strong>1 BT Note</strong> is equal to <strong>10,000 In-Game Currency</strong> each!</p>
+            </div>
 
-/* Modal */
-.modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.95); z-index: 999;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none; transition: 0.3s; backdrop-filter: blur(10px);
-}
-.modal-overlay.active { opacity: 1; pointer-events: all; }
+            <div class="grid-container">
+                <div class="tilt-card rare fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/note_100.png" alt="1x BT Note" class="card-img">
+                        <h3>1x BT Note</h3>
+                        <div class="price">₹ 10</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+                <div class="tilt-card rare fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/note_100.png" alt="10x BT Notes" class="card-img">
+                        <h3>10x BT Notes</h3>
+                        <div class="price">₹ 100</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+                <div class="tilt-card rare fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/note_100.png" alt="100x BT Notes" class="card-img">
+                        <h3>100x BT Notes</h3>
+                        <div class="price">₹ 800</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+                <div class="tilt-card rare fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/note_100.png" alt="1000x BT Notes" class="card-img">
+                        <h3>1000x BT Notes</h3>
+                        <div class="price">₹ 7400</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-.modal-box {
-    width: 90%; max-width: 900px; background: #121214;
-    border: 1px solid #333; display: flex; flex-direction: column;
-    position: relative; transform: scale(0.9); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border-radius: 20px; overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-}
-.modal-overlay.active .modal-box { transform: scale(1); }
-@media(min-width: 768px) { .modal-box { flex-direction: row; } }
+        <section id="armor" class="section-padding">
+            <div class="section-header fade-on-scroll">
+                <h2>ARMOR SETS</h2>
+                <div class="header-line"></div>
+            </div>
+            
+            <div class="grid-container">
+                <div class="tilt-card legendary fade-on-scroll" onclick="openModal('Skeleton Overlord', '1200', 'LEGENDARY', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_q3ncylq3ncylq3nc.png?updatedAt=1764672364860')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/1000139327-modified.png" alt="Skeleton" class="card-img">
+                        <h3>Skeleton Overlord</h3>
+                        <span class="badge leg">LEGENDARY</span>
+                        <div class="price">₹ 1200</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
 
-.modal-left {
-    background: #18181b; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 50px; border-right: 1px solid #222;
-}
+                <div class="tilt-card epic fade-on-scroll" onclick="openModal('Bloody Emperor', '800', 'EPIC', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_93svgx93svgx93sv.png?updatedAt=1764672368804')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/1000139308-modified.png" alt="Blood" class="card-img">
+                        <h3>Bloody Emperor</h3>
+                        <span class="badge epic">EPIC</span>
+                        <div class="price">₹ 800</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
 
-/* --- ZOOM CONTAINER --- */
-.zoom-container {
-    width: 100%;
-    max-width: 350px; /* Big Size */
-    height: 350px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
-    cursor: crosshair;
-    display: flex; align-items: center; justify-content: center;
-}
+                <div class="tilt-card epic fade-on-scroll" onclick="openModal('Wukong Set', '800', 'EPIC', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_uvw55fuvw55fuvw5.png?updatedAt=1764672368731')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/1000139329-modified.png" alt="Wukong" class="card-img">
+                        <h3>Wukong Set</h3>
+                        <span class="badge epic">EPIC</span>
+                        <div class="price">₹ 800</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
 
-.modal-img-display {
-    width: 100%; height: 100%;
-    object-fit: contain;
-    padding: 20px;
-    transition: opacity 0.2s;
-    pointer-events: none;
-}
+                <div class="tilt-card epic fade-on-scroll" onclick="openModal('Dryadia Set', '800', 'EPIC', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_bicdgzbicdgzbicd.png?updatedAt=1764672368100')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_e2cw7qe2cw7qe2cw-modified.png?updatedAt=1764672531782" alt="Dryadia" class="card-img">
+                        <h3>Dryadia Set</h3>
+                        <span class="badge epic">EPIC</span>
+                        <div class="price">₹ 800</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
 
-/* Zoom Active State */
-.zoom-container.active .modal-img-display { opacity: 0; }
-.zoom-container.active { background-repeat: no-repeat; background-size: 250%; }
+                <div class="tilt-card epic fade-on-scroll" onclick="openModal('Darkflame Set', '800', 'EPIC', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_a5vxkra5vxkra5vx.png?updatedAt=1764672367137')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/1000139331-modified.png" alt="Darkflame" class="card-img">
+                        <h3>Darkflame Set</h3>
+                        <span class="badge epic">EPIC</span>
+                        <div class="price">₹ 800</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
 
-/* Mobile Button */
-.mobile-view-btn {
-    display: none; margin-top: 20px;
-    color: #888; text-decoration: none; font-family: var(--font-head); font-size: 0.9rem;
-    border: 1px solid #444; padding: 10px 20px; border-radius: 8px; transition: 0.3s;
-}
-.mobile-view-btn:hover { background: white; color: black; }
+                <div class="tilt-card rare fade-on-scroll" onclick="openModal('Beats Set', '600', 'RARE', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_gqj8pagqj8pagqj8.png?updatedAt=1764672368540')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/1000139304-modified.png" alt="Beats" class="card-img">
+                        <h3>Beats Set</h3>
+                        <span class="badge rare">RARE</span>
+                        <div class="price">₹ 600</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
 
-.modal-right { flex: 1.2; padding: 50px; display: flex; flex-direction: column; justify-content: center; }
-.modal-right h2 { 
-    font-family: var(--font-head); font-size: 3rem; line-height: 1; margin-bottom: 15px; 
-    background: linear-gradient(to right, #fff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.modal-badge { font-weight: 700; font-size: 0.9rem; letter-spacing: 2px; padding: 8px 16px; border-radius: 20px; text-transform: uppercase; align-self: flex-start;}
+                <div class="tilt-card rare fade-on-scroll" onclick="openModal('Little Dragon Set', '600', 'RARE', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_424gi4424gi4424g.png?updatedAt=1764672368270')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/1000139302-modified.png" alt="Dragon" class="card-img">
+                        <h3>Little Dragon Set</h3>
+                        <span class="badge rare">RARE</span>
+                        <div class="price">₹ 600</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
 
-.modal-price { margin: 30px 0; border-top: 1px solid #333; padding-top: 20px; }
-.modal-price span { font-size: 1rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
-.modal-price h3 { font-family: var(--font-head); font-size: 3.5rem; margin-top: 5px; color: var(--accent); text-shadow: 0 0 20px var(--accent-glow); }
+                <div class="tilt-card rare fade-on-scroll" onclick="openModal('Violet Set', '600', 'RARE', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_17zo7f17zo7f17zo.png?updatedAt=1764672368878')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/1000139306-modified.png" alt="Violet" class="card-img">
+                        <h3>Violet Set</h3>
+                        <span class="badge rare">RARE</span>
+                        <div class="price">₹ 600</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
 
-.discord-btn {
-    display: block; background: #5865F2; color: white;
-    text-align: center; padding: 20px; font-weight: 700; font-size: 1.2rem;
-    text-decoration: none; border-radius: 8px; transition: 0.3s;
-    box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3);
-}
-.discord-btn:hover { background: #4752c4; box-shadow: 0 10px 30px rgba(88, 101, 242, 0.6); transform: translateY(-3px); }
+                <div class="tilt-card rare fade-on-scroll" onclick="openModal('Aceruin Set', '600', 'RARE', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_lb284ylb284ylb28.png?updatedAt=1764672367532')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/1000139335-modified.png" alt="Aceruin" class="card-img">
+                        <h3>Aceruin Set</h3>
+                        <span class="badge rare">RARE</span>
+                        <div class="price">₹ 600</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
 
-.close-btn {
-    position: absolute; top: 20px; right: 20px;
-    background: none; border: none; color: white; font-size: 2.5rem; cursor: pointer; z-index: 10;
-    transition: 0.3s;
-}
-.close-btn:hover { color: var(--accent); transform: rotate(90deg); }
+                <div class="tilt-card common fade-on-scroll" onclick="openModal('Little Panda Set', '500', 'UNCOMMON', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_4xzwpm4xzwpm4xzw.png?updatedAt=1764672368321')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/1000139288-modified.png" alt="Panda" class="card-img">
+                        <h3>Little Panda Set</h3>
+                        <span class="badge common">UNCOMMON</span>
+                        <div class="price">₹ 500</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
 
-.fade-on-scroll { opacity: 0; transform: translateY(50px); transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1); }
-.fade-on-scroll.visible { opacity: 1; transform: translateY(0); }
+                <div class="tilt-card common fade-on-scroll" onclick="openModal('Ocean Guardian Set', '400', 'UNCOMMON', 'https://ik.imagekit.io/0pbigpeehf/b.png?updatedAt=1764672361640')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/1000139303-modified.png" alt="Ocean" class="card-img">
+                        <h3>Ocean Guardian Set</h3>
+                        <span class="badge common">UNCOMMON</span>
+                        <div class="price">₹ 400</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
 
-@media(max-width: 768px) {
-    .hero-title { font-size: 3rem; }
-    .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .header-line { width: 100%; height: 1px; }
-    .modal-right h2 { font-size: 2rem; }
-    .modal-price h3 { font-size: 2.5rem; }
-    
-    /* Mobile Zoom Logic */
-    .mobile-view-btn { display: inline-block; }
-    .zoom-container { cursor: default; height: auto; min-height: 250px; pointer-events: none; }
-    .zoom-container.active { background-image: none !important; }
-    .modal-img-display { opacity: 1 !important; }
-}
+                <div class="tilt-card common fade-on-scroll" onclick="openModal('Little Bunny Set', '400', 'UNCOMMON', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_nv4rz1nv4rz1nv4r.png?updatedAt=1764672368094')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/1000139337-modified.png" alt="Bunny" class="card-img">
+                        <h3>Little Bunny Set</h3>
+                        <span class="badge common">UNCOMMON</span>
+                        <div class="price">₹ 400</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="furniture" class="section-padding">
+            <div class="section-header fade-on-scroll">
+                <h2>FURNITURE SETS</h2>
+                <div class="header-line"></div>
+            </div>
+            <div class="grid-container">
+                <div class="tilt-card common fade-on-scroll" onclick="openModal('Garden Decoration', '400', 'FURNITURE', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_y8qth2y8qth2y8qt.png')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_fez94wfez94wfez9-modified.png" alt="Furniture" class="card-img">
+                        <h3>Garden Decoration</h3>
+                        <div class="price">₹ 400</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
+                <div class="tilt-card common fade-on-scroll" onclick="openModal('Rome Empire Furniture', '200', 'FURNITURE', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_9mjswv9mjswv9mjs.png')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_7fgbot7fgbot7fgb-modified.png" alt="Furniture" class="card-img">
+                        <h3>Rome Empire Furniture</h3>
+                        <div class="price">₹ 200</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
+                <div class="tilt-card common fade-on-scroll" onclick="openModal('Viking Furniture', '400', 'FURNITURE', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_yz33bwyz33bwyz33.png')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_19morv19morv19mo-modified.png" alt="Furniture" class="card-img">
+                        <h3>Viking Furniture</h3>
+                        <div class="price">₹ 400</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
+                <div class="tilt-card common fade-on-scroll" onclick="openModal('Royal Furniture', '200', 'FURNITURE', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_ra9tjsra9tjsra9t.png')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_rn9fxnrn9fxnrn9f-modified.png" alt="Furniture" class="card-img">
+                        <h3>Royal Furniture</h3>
+                        <div class="price">₹ 200</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
+                <div class="tilt-card common fade-on-scroll" onclick="openModal('Living Room Furniture', '300', 'FURNITURE', 'https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_nu47xvnu47xvnu47.png')">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_mjprhdmjprhdmjpr-modified.png" alt="Furniture" class="card-img">
+                        <h3>Living Room Furniture</h3>
+                        <div class="price">₹ 300</div>
+                        <button class="buy-btn-style">INSPECT</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="plushies" class="section-padding">
+            <div class="section-header fade-on-scroll">
+                <h2>PLUSHIES</h2>
+                <div class="header-line"></div>
+            </div>
+            
+            <div class="note-box fade-on-scroll">
+                <i class="fa-solid fa-tag"></i>
+                <p><strong>NOTE:</strong> You can buy <strong>Single Plushies</strong> for <strong>₹ 30</strong> each! Create a ticket to order.</p>
+            </div>
+
+            <div class="grid-container">
+                <div class="tilt-card rare fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_vr4xrtvr4xrtvr4x.png" alt="SuperHeroes Plushies Set" class="card-img">
+                        <h3>SuperHeroes Plushies Set</h3>
+                        <div class="price">₹ 200</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="weapons" class="section-padding">
+            <div class="section-header fade-on-scroll">
+                <h2>SINGLE WEAPONS</h2>
+                <div class="header-line"></div>
+            </div>
+            <div class="grid-container">
+                <div class="tilt-card epic fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_hj46zwhj46zwhj46-modified.png" alt="Weapon" class="card-img">
+                        <h3>Wukong Sword</h3>
+                        <div class="price">₹ 400</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+                 <div class="tilt-card epic fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_em8s6iem8s6iem8s-modified.png" alt="Weapon" class="card-img">
+                        <h3>Skeleton Overlord Sword</h3>
+                        <div class="price">₹ 400</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+                 <div class="tilt-card epic fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_gdfs7jgdfs7jgdfs-modified.png" alt="Weapon" class="card-img">
+                        <h3>DarkFlame Sword</h3>
+                        <div class="price">₹ 200</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+                 <div class="tilt-card epic fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_pjy0x6pjy0x6pjy0-modified.png" alt="Weapon" class="card-img">
+                        <h3>Bloody Emperor Sword</h3>
+                        <div class="price">₹ 200</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+                 <div class="tilt-card epic fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_53hpsm53hpsm53hp-modified.png" alt="Weapon" class="card-img">
+                        <h3>Dryadia Dagger</h3>
+                        <div class="price">₹ 200</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+                <div class="tilt-card epic fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/on-modified.png" alt="Weapon" class="card-img">
+                        <h3>Beats Sword 1</h3>
+                        <div class="price">₹ 100</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+                 <div class="tilt-card epic fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_7641ca7641ca7641-modified.png" alt="Weapon" class="card-img">
+                        <h3>Beats Sword 2</h3>
+                        <div class="price">₹ 100</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+                 <div class="tilt-card epic fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_ezq34bezq34bezq3-modified.png" alt="Weapon" class="card-img">
+                        <h3>Aceriun Sword</h3>
+                        <div class="price">₹ 100</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+                 <div class="tilt-card epic fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/n-modified.png" alt="Weapon" class="card-img">
+                        <h3>Dragon Sword</h3>
+                        <div class="price">₹ 100</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+                 <div class="tilt-card epic fade-on-scroll">
+                    <div class="card-content">
+                        <img src="https://ik.imagekit.io/0pbigpeehf/Gemini_Generated_Image_vvxdyavvxdyavvxd-modified.png" alt="Weapon" class="card-img">
+                        <h3>Panda Sword</h3>
+                        <div class="price">₹ 100</div>
+                        <a href="https://discord.gg/uK3maRzVbB" class="mini-btn">BUY NOW</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="modal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div class="modal-left">
+                <div class="zoom-container" id="zoom-container">
+                    <img id="m-img" src="" alt="Preview" class="modal-img-display">
+                </div>
+                <a id="mobile-zoom-btn" href="#" target="_blank" class="mobile-view-btn">
+                    <i class="fa-solid fa-expand"></i> View Full Size
+                </a>
+            </div>
+            <div class="modal-right">
+                <h2 id="m-title">TITLE</h2>
+                <span id="m-rarity" class="modal-badge">RARITY</span>
+                <p>This exclusive set includes high-durability items with custom textures and enchantments.</p>
+                <div class="modal-price">
+                    <span>Total Cost:</span>
+                    <h3 id="m-price">₹ 000</h3>
+                </div>
+                <a href="https://discord.gg/uK3maRzVbB" class="discord-btn">
+                    <i class="fa-brands fa-discord"></i> PURCHASE TICKET
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 BUILDTOPIA SMP, Made by @ParthOP69</p>
+    </footer>
+
+    <script>
+        // 1. Scroll Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
+
+        // 2. Modal Variables
+        const modal = document.getElementById('modal');
+        const mTitle = document.getElementById('m-title');
+        const mPrice = document.getElementById('m-price');
+        const mRarity = document.getElementById('m-rarity');
+        const mImg = document.getElementById('m-img');
+        
+        // Zoom Variables
+        const zoomContainer = document.getElementById('zoom-container');
+        const mobileBtn = document.getElementById('mobile-zoom-btn');
+
+        // 3. Open Modal Function
+        function openModal(title, price, rarity, imgLink) {
+            mTitle.innerText = title;
+            mPrice.innerText = "₹ " + price;
+            mRarity.innerText = rarity;
+            mRarity.className = 'modal-badge ' + rarity.toLowerCase();
+            
+            mImg.src = imgLink;
+            mobileBtn.href = imgLink; // Set link for mobile button
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            // Reset zoom
+            zoomContainer.classList.remove('active');
+            zoomContainer.style.backgroundImage = 'none';
+        }
+        
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) closeModal();
+        })
+
+        // 4. ZOOM EFFECT (Desktop)
+        zoomContainer.addEventListener('mousemove', function(e) {
+            if(window.innerWidth > 768) { // Only on desktop
+                const rect = zoomContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xPercent = (x / rect.width) * 100;
+                const yPercent = (y / rect.height) * 100;
+
+                zoomContainer.classList.add('active');
+                zoomContainer.style.backgroundImage = `url('${mImg.src}')`;
+                zoomContainer.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
+            }
+        });
+
+        zoomContainer.addEventListener('mouseleave', function() {
+            zoomContainer.classList.remove('active');
+            zoomContainer.style.backgroundImage = 'none';
+        });
+
+        // 5. 3D Tilt Effect
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const xPct = (x / rect.width) - 0.5;
+                const yPct = (y / rect.height) - 0.5;
+                const rotateX = yPct * -10; 
+                const rotateY = xPct * 10;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
+            });
+        });
+    </script>
+</body>
+</html>
